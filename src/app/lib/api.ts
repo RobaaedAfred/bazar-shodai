@@ -20,16 +20,13 @@ export type Product = {
 };
 export type Category = { id: string; slug: string; nameBn: string; icon: string };
 
-const BASES = [
-  "https://api.api-store.workers.dev/api/bazardor",
-  "https://api.abcz.workers.dev/api/bazardor",
-];
+const BASES = ["https://openapi.programming-hero.com/api/bazardor"];
 
 // Remembers responses for 5 minutes so repeated page loads don't hit the API
 const memory = new Map<string, { at: number; data: unknown }>();
 const TTL = 5 * 60 * 1000;
 
-/** Tries the main API, then the backup. Returns null on 404. */
+/** Tries each API in BASES. Returns null on 404. */
 async function request<T>(path: string): Promise<T | null> {
   const hit = memory.get(path);
   if (hit && Date.now() - hit.at < TTL) return hit.data as T;
@@ -100,3 +97,8 @@ export async function getCategory(slug: string): Promise<Category | null> {
   const data = await request<Category>(`/categories/${encodeURIComponent(slug)}`);
   return data && (data as Category).slug ? data : null;
 }
+
+export const getCategories = cache(async (): Promise<Category[]> => {
+  const data = await request<Category[]>("/categories");
+  return Array.isArray(data) ? data : [];
+});

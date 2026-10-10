@@ -1,14 +1,17 @@
 import Link from "next/link";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
-import { CATEGORIES } from "@/lib/constants";
+import { getCategories } from "@/lib/api";
 import BanglaDate from "./BanglaDate";
 import Avatar from "./Avatar";
 import SignOutButton from "./SignOutButton";
 
 export default async function Navbar() {
   const h = await headers();
-  const session = await auth.api.getSession({ headers: h });
+  const [session, categories] = await Promise.all([
+    auth.api.getSession({ headers: h }),
+    getCategories().catch(() => []),
+  ]);
   const pathname = h.get("x-pathname") ?? "";
   const user = session?.user;
 
@@ -59,7 +62,7 @@ export default async function Navbar() {
 
       <nav className="mx-auto max-w-6xl px-4 pb-3" aria-label="ক্যাটাগরি">
         <ul className="no-scrollbar flex gap-1.5 overflow-x-auto">
-          {CATEGORIES.map((c) => {
+          {categories.map((c) => {
             const active = pathname === `/category/${c.slug}`;
             return (
               <li key={c.slug} className="shrink-0">
