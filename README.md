@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
 
-## Getting Started
+# 🛒 বাজার দর (BazarDor)
 
-First, run the development server:
+**আজকের বাজারের দাম এক নজরে**
+
+Track today's essential grocery prices across Bangladesh — rice, lentils, oil, vegetables, fish, meat, eggs-dairy and spices — with market-wise comparison and daily price changes.
+
+[Live Demo](#) · [Report a Bug](#) · [Request a Feature](#)
+
+</div>
+
+---
+
+## 📖 About
+
+**বাজার দর (BazarDor)** is a responsive, Bangla-first web app that shows the latest prices of everyday products.
+Visitors can browse prices by category, see which items got more expensive or cheaper today, and — after signing in —
+open a product to compare minimum, maximum and average prices across different markets and divisions.
+
+## 🛠️ Technologies Used
+
+| Technology | Purpose |
+| --- | --- |
+| **Next.js** | Build the UI |
+| **App Router (Next.js)** | Handle page navigation and dynamic routes (`/category/[slug]`, `/product/[slug]`) |
+| **Tailwind CSS + DaisyUI** | Styling and responsiveness |
+| **TypeScript** | Type-safe code |
+| **Better Auth** | Email/password, Google and GitHub authentication |
+| **MongoDB** | Stores users and sessions |
+| **react-toastify** | Toast notifications for auth and errors |
+| **Noto Serif Bengali** | Bangla typography via `next/font` |
+
+## ✨ Key Features
+
+1. **📈 Live price ticker** — an infinitely scrolling strip under the navbar showing emoji, product name, price per unit and ▲/▼ change.
+2. **🔺🔻 Daily movers** — the top 6 products whose prices rose and the top 6 whose prices fell today, plus a full product grid.
+3. **🗂️ Category pages with sorting** — skeleton loading, sort by default / price low→high / price high→low (numeric, not text), and a friendly 404 state.
+4. **🔒 Protected product details** — login-only page with min, max and average prices and a market-by-market price table.
+5. **🔐 Complete authentication** — Email/Password, Google and GitHub sign-in with Better Auth, a profile page, name update, and toast feedback everywhere.
+
+## 🚀 Getting Started
 
 ```bash
+# 1. Install dependencies
+npm install
+
+# 2. Create your environment file
+cp .env.example .env.local
+
+# 3. Start the dev server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Environment variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```env
+MONGODB_URI=mongodb://127.0.0.1:27017
+MONGODB_DB_NAME=bazardor
 
-## Learn More
+BETTER_AUTH_SECRET=your-long-random-secret
+BETTER_AUTH_URL=http://localhost:3000
 
-To learn more about Next.js, take a look at the following resources:
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+OAuth callback URLs: `/api/auth/callback/google` and `/api/auth/callback/github`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📡 API
 
-## Deploy on Vercel
+Data comes from `https://openapi.programming-hero.com/api/bazardor`:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+`/products` · `/products?category=chal` · `/products/1` · `/categories` · `/categories/chal`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## ☁️ Deployment
+
+Deploy on Vercel, add the same environment variables, set `BETTER_AUTH_URL` to your live domain, and add that
+domain's callback URLs in your Google and GitHub OAuth apps.
+
+---
+
+<div align="center">Made with 💚 for Bangladesh's bazaars</div>
