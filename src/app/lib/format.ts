@@ -7,7 +7,6 @@ const pctFmt = new Intl.NumberFormat(LOCALE, { minimumFractionDigits: 1, maximum
 
 export const bn = (n: number) => intFmt.format(n);
 
-/** Price: integer -> ৬২, fractional -> ৬৩.৫০ */
 export const bnPrice = (n: number) => (Number.isInteger(n) ? intFmt.format(n) : decFmt.format(n));
 
 export const bnPct = (n: number) => pctFmt.format(n);

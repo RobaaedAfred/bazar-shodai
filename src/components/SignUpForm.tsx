@@ -29,12 +29,18 @@ export default function SignUpForm() {
     if (form.password !== form.confirm) return fail("দুটি পাসওয়ার্ড মিলছে না।");
 
     setLoading(true);
-    const { error: err } = await authClient.signUp.email({ name: form.name.trim(), email: form.email, password: form.password });
-    setLoading(false);
-    if (err) return fail(authErrorMessage(err, "অ্যাকাউন্ট তৈরি করা যায়নি, আবার চেষ্টা করুন।"));
+    try {
+      const { error: err } = await authClient.signUp.email({ name: form.name.trim(), email: form.email, password: form.password });
+      if (err) return fail(authErrorMessage(err, "অ্যাকাউন্ট তৈরি করা যায়নি, আবার চেষ্টা করুন।"));
 
-    toast.success("অ্যাকাউন্ট তৈরি হয়েছে! এবার সাইন ইন করুন।");
-    router.push("/signin");
+      toast.success("অ্যাকাউন্ট তৈরি হয়েছে! এবার সাইন ইন করুন।");
+      router.push("/signin");
+    } catch (error) {
+      console.error("Email sign-up request failed", error);
+      fail("সার্ভারের সাথে সংযোগ করা যায়নি, আবার চেষ্টা করুন।");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -42,7 +48,7 @@ export default function SignUpForm() {
       <form onSubmit={onSubmit} className="space-y-4" noValidate>
         <div>
           <label htmlFor="name" className="mb-1 block text-sm font-semibold">নাম</label>
-          <input id="name" autoComplete="name" placeholder="যেমন: রহিম উদ্দিন" value={form.name} onChange={set("name")} className={inputCls} />
+          <input id="name" autoComplete="name" placeholder="Your Name" value={form.name} onChange={set("name")} className={inputCls} />
         </div>
         <div>
           <label htmlFor="email" className="mb-1 block text-sm font-semibold">ইমেইল</label>
@@ -50,11 +56,11 @@ export default function SignUpForm() {
         </div>
         <div>
           <label htmlFor="password" className="mb-1 block text-sm font-semibold">পাসওয়ার্ড</label>
-          <input id="password" type="password" autoComplete="new-password" placeholder="কমপক্ষে ৮ অক্ষর" value={form.password} onChange={set("password")} className={inputCls} />
+          <input id="password" type="password" autoComplete="new-password" placeholder="Minimum 8 word" value={form.password} onChange={set("password")} className={inputCls} />
         </div>
         <div>
           <label htmlFor="confirm" className="mb-1 block text-sm font-semibold">পাসওয়ার্ড নিশ্চিত করুন</label>
-          <input id="confirm" type="password" autoComplete="new-password" placeholder="আবার লিখুন" value={form.confirm} onChange={set("confirm")} className={inputCls} />
+          <input id="confirm" type="password" autoComplete="new-password" placeholder="Type Password Again" value={form.confirm} onChange={set("confirm")} className={inputCls} />
         </div>
         {error && <p role="alert" className="rounded-lg bg-red-50 px-3 py-2 text-sm text-up">{error}</p>}
         <button type="submit" disabled={loading} className={primaryBtn}>{loading ? "অপেক্ষা করুন…" : "অ্যাকাউন্ট তৈরি করুন"}</button>

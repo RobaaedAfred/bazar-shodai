@@ -30,13 +30,19 @@ export default function SignInForm() {
     if (password.length < 8) return fail("পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে।");
 
     setLoading(true);
-    const { error: err } = await authClient.signIn.email({ email, password });
-    setLoading(false);
-    if (err) return fail(authErrorMessage(err, "সাইন ইন করা যায়নি, আবার চেষ্টা করুন।"));
+    try {
+      const { error: err } = await authClient.signIn.email({ email, password });
+      if (err) return fail(authErrorMessage(err, "সাইন ইন করা যায়নি, আবার চেষ্টা করুন।"));
 
-    toast.success("সফলভাবে সাইন ইন হয়েছে!");
-    router.push(callback);
-    router.refresh();
+      toast.success("সফলভাবে সাইন ইন হয়েছে!");
+      router.push(callback);
+      router.refresh();
+    } catch (error) {
+      console.error("Email sign-in request failed", error);
+      fail("সার্ভারের সাথে সংযোগ করা যায়নি, আবার চেষ্টা করুন।");
+    } finally {
+      setLoading(false);
+    }
   }
 
   function fail(msg: string) {

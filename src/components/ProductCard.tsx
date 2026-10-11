@@ -7,7 +7,7 @@ export default function ProductCard({ p }: { p: Product }) {
   return (
     <Link
       href={`/product/${p.slug}`}
-      className="block rounded-2xl border border-line bg-card p-4 shadow-[0_1px_2px_rgba(20,40,25,.05)] transition hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-md focus-visible:outline-2 focus-visible:outline-brand"
+      className="block rounded-2xl border border-line bg-card p-4 shadow-[0_1px_2px_rgba(20,40,25,.05)]  focus-visible:outline-2 focus-visible:outline-brand"
     >
       <div className="flex items-center gap-3">
         <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[#eef2ec] text-2xl">{p.image}</span>

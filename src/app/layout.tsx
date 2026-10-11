@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { Noto_Serif_Bengali } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/Provider";
@@ -14,7 +13,7 @@ const noto = Noto_Serif_Bengali({
 });
 
 export const metadata: Metadata = {
-  title: "বাজার দর — আজকের দামের তালিকা",
+  title: "বাজার দর ",
   description: "চাল, ডাল, তেল, সবজি, মাছ, মাংস, ডিম ও মসলার আজকের দাম, বাজারভিত্তিক তুলনা ও দামের পরিবর্তন এক জায়গায়।",
   applicationName: "বাজার দর",
   keywords: ["বাজার দর", "আজকের দাম", "ঢাকা বাজার", "BazarDor"],

@@ -21,7 +21,7 @@ export default function ProfileView() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
-      <h1 className="text-2xl font-extrabold">আমার প্রোফাইল</h1>
+      <h1 className="text-2xl font-extrabold">প্রোফাইল</h1>
       <p className="text-sm text-muted">আপনার অ্যাকাউন্টের তথ্য এখানে দেখুন।</p>
 
       {isPending || !session ? (
