@@ -54,21 +54,6 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-### Environment variables
-
-```env
-MONGODB_URI=mongodb://127.0.0.1:27017
-MONGODB_DB_NAME=bazardor
-
-BETTER_AUTH_SECRET=your-long-random-secret
-BETTER_AUTH_URL=http://localhost:3000
-
-GOOGLE_CLIENT_ID=
-GOOGLE_CLIENT_SECRET=
-GITHUB_CLIENT_ID=
-GITHUB_CLIENT_SECRET=
-```
-
 OAuth callback URLs: `/api/auth/callback/google` and `/api/auth/callback/github`.
 
 ## 📡 API
