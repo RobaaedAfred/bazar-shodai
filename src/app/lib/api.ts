@@ -22,11 +22,10 @@ export type Category = { id: string; slug: string; nameBn: string; icon: string 
 
 const BASES = ["https://openapi.programming-hero.com/api/bazardor"];
 
-// Remembers responses for 5 minutes so repeated page loads don't hit the API
+
 const memory = new Map<string, { at: number; data: unknown }>();
 const TTL = 5 * 60 * 1000;
 
-/** Tries each API in BASES. Returns null on 404. */
 async function request<T>(path: string): Promise<T | null> {
   const hit = memory.get(path);
   if (hit && Date.now() - hit.at < TTL) return hit.data as T;
@@ -44,7 +43,7 @@ async function request<T>(path: string): Promise<T | null> {
       lastError = err;
     }
   }
-  if (hit) return hit.data as T; // API down: show the last good data
+  if (hit) return hit.data as T; 
   throw lastError ?? new Error("API unavailable");
 }
 
@@ -77,7 +76,7 @@ function normalize(raw: Partial<Product> & Record<string, unknown>): Product {
   };
 }
 
-// cache() makes the ticker and the page share one request per page load
+
 export const getProducts = cache(async (category?: string): Promise<Product[]> => {
   const path = category ? `/products?category=${encodeURIComponent(category)}` : "/products";
   const data = await request<Product[]>(path);
@@ -88,7 +87,7 @@ export async function getProduct(slug: string): Promise<Product | null> {
   const data = await request<Product | Product[]>(`/products?slug=${encodeURIComponent(slug)}`);
   const item = Array.isArray(data) ? data[0] : data;
   if (item && item.slug === slug) return normalize(item);
-  // fallback: look through the full list
+
   const all = await getProducts();
   return all.find((p) => p.slug === slug) ?? null;
 }
