@@ -17,7 +17,6 @@ export default function Hero() {
         </a>
       </div>
       <div className="flex justify-center md:justify-end">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/bazar-hero.png" alt="তাজা বাজারের ঝুড়ি" className="w-full max-w-[320px] md:max-w-[380px]" />
       </div>
     </section>

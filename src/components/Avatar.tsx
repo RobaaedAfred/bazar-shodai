@@ -3,7 +3,6 @@ type U = { name?: string | null; image?: string | null };
 export default function Avatar({ user, className = "h-8 w-8 text-sm" }: { user: U; className?: string }) {
   const initial = (user.name ?? "?").trim().charAt(0).toUpperCase();
   if (user.image) {
-    // eslint-disable-next-line @next/next/no-img-element
     return <img src={user.image} alt={user.name ?? "প্রোফাইল"} referrerPolicy="no-referrer" className={`${className} rounded-full object-cover`} />;
   }
   return (
