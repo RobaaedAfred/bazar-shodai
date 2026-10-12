@@ -54,7 +54,10 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+<<<<<<< HEAD
 OAuth callback URLs: `/api/auth/callback/google` and `/api/auth/callback/github`.
+=======
+>>>>>>> a70488e (Base Url removed)
 
 ## 📡 API
 
